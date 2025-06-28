@@ -2,7 +2,8 @@
 #include <string.h>
 #include <ctype.h>
 
-
+//TODO:
+//take input from terminal (command-line argument)
 
 int check_length(const char *password) {
     int password_len = strlen(password);
@@ -45,12 +46,40 @@ int check_symbols(const char *password) {
     return 0;
 }
 
+int check_upper_lower(const char *password) {
+    int lower = 0;
+    int upper = 0;
+    for (int i = 0; password[i] != '\0'; i++) {
+        if (lower == 1 && upper == 1) {
+            return 1;
+        }
+
+        if (password[i] >= 'a' && password[i] <= 'z') {
+            lower = 1;
+        }
+
+        if (password[i] >= 'A' && password[i] <= 'Z') {
+            upper = 1;
+        }
+    }
+    return 0;
+}
 
 int main() {
     
-    char *password = "abc123$";
+    char *password = "Abcdefghjkabcdefghuwerdfkjh123$";
+    int points = 0;
+
+    points += check_length(password);
+    points += check_digits(password);
+    points += check_symbols(password);
+    points += check_upper_lower(password);
+
     printf("%d\n", check_length(password));
     printf("%d\n", check_digits(password));
     printf("%d\n", check_symbols(password));
+    printf("%d\n", check_upper_lower(password));
+
+    printf("%d\n", points);
     return 0;
 }
