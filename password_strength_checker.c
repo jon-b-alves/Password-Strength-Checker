@@ -2,9 +2,6 @@
 #include <string.h>
 #include <ctype.h>
 
-//TODO:
-//take input from terminal (command-line argument)
-
 int check_length(const char *password) {
     int password_len = strlen(password);
 
@@ -65,21 +62,60 @@ int check_upper_lower(const char *password) {
     return 0;
 }
 
-int main() {
-    
-    char *password = "Abcdefghjkabcdefghuwerdfkjh123$";
-    int points = 0;
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        printf("Please provide a single password to check it's strength\n");
+        return 0;
+    }
 
-    points += check_length(password);
-    points += check_digits(password);
-    points += check_symbols(password);
-    points += check_upper_lower(password);
+    if (argc > 2) {
+        printf("Provided too many arguments, please enter a single password\n");
+        return 0;
+    }
 
-    printf("%d\n", check_length(password));
-    printf("%d\n", check_digits(password));
-    printf("%d\n", check_symbols(password));
-    printf("%d\n", check_upper_lower(password));
+    else {
+        char *password = argv[1];
+        int points = 0;
 
-    printf("%d\n", points);
-    return 0;
+        points += check_length(password);
+        points += check_digits(password);
+        points += check_symbols(password);
+        points += check_upper_lower(password);
+
+        switch (points) {
+
+            case 0:
+            printf("Extremely Weak\n");
+            return 0;
+
+            case 1:
+            printf("Very Weak\n");
+            return 0;
+
+            case 2:
+            printf("Weak\n");
+            return 0;
+
+            case 3:
+            printf("Moderate\n");
+            return 0;
+
+            case 4:
+            printf("Strong\n");
+            return 0;
+
+            case 5:
+            printf("Very Strong\n");
+            return 0;
+
+            case 6:
+            printf("Excellent\n");
+            return 0;
+
+            case 7:
+            printf("Maximum\n");
+            return 0;
+        }
+        return 0;
+    }
 }
